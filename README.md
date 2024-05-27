@@ -18,4 +18,4 @@ Component Library is a custom component library made by the comuafor comunity, s
 
 ## Deployment
 
-Vercel: In profgress
+Vercel: In progress
