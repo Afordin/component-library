@@ -27,11 +27,11 @@ const ToasterTest = ({ toast = "This is a toast!" }: { toast?: Toast }) => {
 };
 
 beforeAll(() => {
-  Element.prototype.animate = vi
-    .fn()
-    .mockImplementation(() => ({ finished: Promise.resolve() }));
-
-  // Element.prototype.addEventListener = vi.fn().mockImplementation(() => {});
+  Element.prototype.animate = vi.fn().mockImplementation(() => ({
+    finished: Promise.resolve(),
+    addEventListener: vi.fn((type: string, callback: () => void) => callback()),
+    play: vi.fn(),
+  }))
 });
 
 afterAll(() => {
@@ -58,7 +58,7 @@ const sleep = (ms: number) => {
   });
 };
 
-test.skip("Toast stays on screen for >= given duration", async () => {
+test("Toast stays on screen for >= given duration", async () => {
   const TOAST_WITH_CUSTOM_DURATION = {
     duration: 1000,
     content: "This is my second toast",
@@ -77,7 +77,7 @@ test.skip("Toast stays on screen for >= given duration", async () => {
 
   await component.findByRole("alert");
 
-  await sleep(TOAST_WITH_CUSTOM_DURATION.duration / 2 + 200);
+  await sleep(TOAST_WITH_CUSTOM_DURATION.duration / 2);
 
   const isThereAToast = component.queryByRole("alert");
   expect(isThereAToast).toBeNull();
