@@ -29,7 +29,7 @@ const ToasterTest = ({ toast = "This is a toast!" }: { toast?: Toast }) => {
 beforeAll(() => {
   Element.prototype.animate = vi.fn().mockImplementation(() => ({
     finished: Promise.resolve(),
-    addEventListener: (type: string, callback: () => void) => callback(),
+    addEventListener: vi.fn((type: string, callback: () => void) => callback()),
     play: vi.fn(),
   }))
 });
