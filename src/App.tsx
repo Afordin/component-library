@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Accordion } from "./components/Accordion/Accordion";
 import { Button } from "./components/Button/Button";
 import { Dialog } from "./components/Dialog/Dialog";
+import { Tooltip } from "./components/Tooltip/Tooltip";
+import { useToaster } from "./components/Toaster/Toaster";
 
 const items = [
   {
@@ -15,14 +17,17 @@ const items = [
   },
 ];
 
-function App() {
-  const [isOpen, setIsOpen] = useState(false);
-
+export const Showcase = ({
+  setIsOpen,
+}: {
+  setIsOpen: (isOpen: boolean) => void;
+}) => {
   return (
-    <div className="w-screen h-screen text-white flex flex-col justify-center items-center bg-[#050505]">
+    <>
       <Button>Suscríbete</Button>
       <Button
         onClick={() => {
+          console.log("Open button");
           setIsOpen(true);
         }}
       >
@@ -49,6 +54,21 @@ function App() {
           />
         </div>
       </div>
+    </>
+  );
+};
+
+function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { addToast } = useToaster();
+
+  return (
+    <div className="w-screen h-screen text-white flex flex-col justify-center items-center bg-[#050505]">
+      <Tooltip content={"Tooltip"} withArrow>
+        <div>Trigger</div>
+      </Tooltip>
+
       <Dialog
         header={
           <>
@@ -64,6 +84,14 @@ function App() {
       >
         <>El contenido</>
       </Dialog>
+
+      <Button
+        onClick={() => {
+          addToast({ content: "Esto es una tostada", duration: 200000 });
+        }}
+      >
+        Render a toast
+      </Button>
     </div>
   );
 }

@@ -11,3 +11,43 @@ html {
 *:after {
   box-sizing: inherit;
 }
+
+.appear {
+  opacity: 0;
+  transform: translateY(250px);
+  scale: 0.8;
+  animation: fade 0.25s ease-in forwards, slide 0.3s ease-in forwards;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  0% {
+    scale: 0.8;
+    transform: translateY(250px);
+  }
+  100% {
+    scale: 1;
+    transform: translateY(0%);
+  }
+}
+
+.disappear {
+  animation: disappear 0.25s ease-out;
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
